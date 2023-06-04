@@ -1,0 +1,24 @@
+ _networkManager = InstanceFinder.NetworkManager;
+
+private void SceneManager_OnClientLoadedStartScenes(NetworkConnection conn, bool asServer){
+
+
+ NetworkObject nob = _networkManager.GetPooledInstantiated(_playerPrefab, true);
+ _networkManager.ServerManager.Spawn(nob, conn);
+}
+
+
+private void PrewarmAmmoPool()
+    {
+        ammoPooler = InstanceFinder.NetworkManager.GetComponent<DefaultObjectPool>();
+        ammoPooler.CacheObjects(allAvailableProjectilePrefabs[0].GetComponent<NetworkObject>(), 8, IsServer);
+    } 
+
+
+foreach (var item in InstanceFinder.ServerManager.Clients)
+        {
+            Debug.Log(item.Key);
+            Debug.Log(item.Value.ClientId);
+        }
+
+    
